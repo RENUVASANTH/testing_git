@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+        form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        label { display: block; margin-top: 15px; }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #243b53;
+            color: white;
+            border: 0;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .message { color: #b42318; }
+    </style>
+</head>
+<body>
+    <h1>Student Registration</h1>
+
+    {% for message in get_flashed_messages() %}
+        <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('register') }}">
+        <label for="name">Student Name</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            maxlength="100"
+            required
+        >
+
+        <label for="course">Select Course</label>
+        <select id="course" name="course" required>
+            <option value="">-- Choose a course --</option>
+            <option value="Python Full Stack">Python Full Stack</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Web Development">Web Development</option>
+        </select>
+
+        <label for="fee">Fee</label>
+        <input
+            type="number"
+            id="fee"
+            name="fee"
+            min="0"
+            step="0.01"
+            readonly
+            required
+        >
+
+        <button type="submit">Register Student</button>
+    </form>
+
+    <p><a href="{{ url_for('index') }}">Back to student list</a></p>
+
+    <script>
+        const courseFees = {
+            "Python Full Stack": 2500.00,
+            "Data Science": 3000.00,
+            "Web Development": 3500.00
+        };
+
+        const courseSelect = document.getElementById('course');
+        const feeInput = document.getElementById('fee');
+
+        courseSelect.addEventListener('change', function () {
+            const selectedCourse = this.value;
+            feeInput.value = courseFees[selectedCourse] ?? '';
+        });
+    </script>
+</body>
+</html>

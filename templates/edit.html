@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+</head>
+<body>
+
+    <h2>Edit Student Details</h2>
+
+    <form method="POST">
+
+        <label>Student Name:</label>
+        <input type="text" name="name"
+               value="{{ student[1] }}" required>
+
+        <br><br>
+
+        <label>Course:</label>
+        <select name="course" required>
+            <option value="Python Full Stack"
+                {% if student[2] == "Python Full Stack" %}selected{% endif %}>
+                Python Full Stack
+            </option>
+
+            <option value="Data Science"
+                {% if student[2] == "Data Science" %}selected{% endif %}>
+                Data Science
+            </option>
+
+            <option value="Web Development"
+                {% if student[2] == "Web Development" %}selected{% endif %}>
+                Web Development
+            </option>
+        </select>
+
+        <br><br>
+
+        <label>Fee:</label>
+        <input type="number" name="fee"
+               value="{{ student[3] }}" step="0.01" min="0" required>
+
+        <br><br>
+
+        <button type="submit">Update Student</button>
+
+        <a href="{{ url_for('index') }}">Cancel</a>
+
+    </form>
+
+</body>
+</html>
